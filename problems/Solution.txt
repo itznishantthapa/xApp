@@ -1,0 +1,20 @@
+RootLayout Ko SafeAreaView ma ... problem aauda
+------------------------------------------------
+
+Solution 1: Install React types:
+yarn add --dev @types/react @types/react-native
+
+
+Solution 2: Clear cache and reinstall
+yarn cache clean
+rm -rf node_modules yarn.lock
+yarn install
+
+
+Remove the unused package: Expo-module-scripts/tsconfig.base
+Becasue we are using the react-native statusbar
+--------------------------------------------------------------
+yarn remove expo-status-bar
+grep -r "expo-status-bar" src/
+yarn why expo-status-bar
+yarn start --reset-cache
