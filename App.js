@@ -1,11 +1,11 @@
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import RootLayout from './src/root/RootLayout';
+import Main from './src/main/Main';
 
 
 export default function App() {
   return (
     <SafeAreaProvider >
-      <RootLayout/>
+      <Main/>
     </SafeAreaProvider>
 
   )

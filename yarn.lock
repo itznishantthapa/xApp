@@ -1427,6 +1427,14 @@
     invariant "^2.2.4"
     nullthrows "^1.1.1"
 
+"@react-navigation/bottom-tabs@^7.4.2":
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-7.4.2.tgz#8d721ce399565185c1e82f2048b50945e9d7860e"
+  integrity sha512-jyBux5l3qqEucY5M/ZWxVvfA8TQu7DVl2gK+xB6iKqRUfLf7dSumyVxc7HemDwGFoz3Ug8dVZFvSMEs+mfrieQ==
+  dependencies:
+    "@react-navigation/elements" "^2.5.2"
+    color "^4.2.3"
+
 "@react-navigation/core@^7.12.1":
   version "7.12.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-7.12.1.tgz#aed4ad5fe88f3304c9ab2ac0c97d7014e8f6c3c5"
@@ -1439,6 +1447,16 @@
     react-is "^19.1.0"
     use-latest-callback "^0.2.4"
     use-sync-external-store "^1.5.0"
+
+"@react-navigation/drawer@^7.5.2":
+  version "7.5.2"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-7.5.2.tgz#3283a7958b073d4ec13352fde08a4a9aca0fc660"
+  integrity sha512-1FSo+DyJe2zlIcQBhHcayZCe2aAF2JF+rpn7HnVnTV2HaCEpgJ0/zgHIa9MZByKntp/aSexL9YkDFQhQj2+7ag==
+  dependencies:
+    "@react-navigation/elements" "^2.5.2"
+    color "^4.2.3"
+    react-native-drawer-layout "^4.1.11"
+    use-latest-callback "^0.2.4"
 
 "@react-navigation/elements@^2.5.2":
   version "2.5.2"
@@ -3802,6 +3820,13 @@ react-is@^19.1.0:
   version "19.1.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.1.0.tgz#805bce321546b7e14c084989c77022351bbdd11b"
   integrity sha512-Oe56aUPnkHyyDxxkvqtd7KkdQP5uIUfHxd5XTb3wE9d/kRnZLmKbDB0GWk919tdQ+mxxPtG6EAs6RMT6i1qtHg==
+
+react-native-drawer-layout@^4.1.11:
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-4.1.11.tgz#f41d95b26863f63c5d3c16161d02dc8de0ef270c"
+  integrity sha512-31gilubSKPLToy31/bb0hhgOOenHYJq4JC7g/JkIEqBqSWzoCgiOlccDHlBRG+MV37UtXZnJN2spj3VusdCd4A==
+  dependencies:
+    use-latest-callback "^0.2.4"
 
 react-native-edge-to-edge@1.6.0:
   version "1.6.0"
