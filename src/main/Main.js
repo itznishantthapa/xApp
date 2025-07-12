@@ -5,43 +5,50 @@ import SignupNavigator from '../navigation/SignupNavigator';
 import CustomerNavigator from '../navigation/CustomerNavigator';
 import AdminNavigator from '../navigation/AdminNavigator';
 import { useStateStore } from '../store/stateStore';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
+import Toast from 'react-native-simple-toast';
 
 
 export default function RootLayout() {
-  const { isAuthenticated, initAuth,logout } = useAuthStore();
-
-  const { isInitialized,setInitialized, isAdmin, isCustomer, isActivity } = useStateStore();
+  const { isAuthenticated, initAuth, logout, isAdmin, isCustomer, isInitialized } = useAuthStore();
+  const { isActivity } = useStateStore();
 
   useEffect(() => {
-   const init = async () => {
-    await initAuth();           // 1. Load user and auth state
-    setInitialized(true);       // 2. Then mark initialized
-  };
-
-  init(); // run once only
-  
+    const init = async () => {
+      await initAuth();           // 1. Load user and auth state
+    };
+    setTimeout(() => {
+      init();
+    }, 2000)
   }, []);
 
   let content;
 
   if (!isInitialized) content = <SplashNavigator />;
   else if (!isAuthenticated) content = <SignupNavigator />;
-  else if (isAdmin) content = <AdminNavigator />;
-  else if (isCustomer) content = <CustomerNavigator />
+  else if (isCustomer) {
+    content = <CustomerNavigator />;
+    Toast.show('Successful Login Customer!');
+  }
+  else if (isAdmin) {
+    content = <AdminNavigator />;
+    Toast.show('Successful Login Admin!');
+  }
   else if (isActivity) content = <ActivityIndicator />
 
   return (
-    <SafeAreaView
-      style={{ flex: 1 }}
-      edges={['right', 'left',]}
-    >
-      <NavigationContainer>
-        {content}
-      </NavigationContainer>
-    </SafeAreaView>
+    <View style={{ flex: 1, backgroundColor: 'red' }}>
+      <SafeAreaView
+        style={{ flex: 1 }}
+        edges={['right', 'left']}
+      >
+        <NavigationContainer>
+          {content}
+        </NavigationContainer>
+      </SafeAreaView>
+    </View>
   )
 }
 
