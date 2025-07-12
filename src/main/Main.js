@@ -12,32 +12,54 @@ import Toast from 'react-native-simple-toast';
 
 
 export default function RootLayout() {
-  const { isAuthenticated, initAuth, logout, isAdmin, isCustomer, isInitialized } = useAuthStore();
+
+/*
+  We zustand state stores.
+  These states provide us with the necessary state and actions.
+*/
+  const {isInitialized, isAuthenticated, initAuth, isAdmin, isCustomer} = useAuthStore();
   const { isActivity } = useStateStore();
 
+  
+
+/*
+ The init() is called after a delay to simulate an asynchronous operations, 
+ In this two sec delay the splash screen is shown,
+ By default isInitialized is false
+*/
   useEffect(() => {
     const init = async () => {
-      await initAuth();           // 1. Load user and auth state
+      await initAuth();     
     };
     setTimeout(() => {
       init();
     }, 2000)
   }, []);
 
-  let content;
 
-  if (!isInitialized) content = <SplashNavigator />;
-  else if (!isAuthenticated) content = <SignupNavigator />;
-  else if (isCustomer) {
+
+/*
+  Based on the authentication state, we render different navigators.
+*/
+  let content;
+  if (!isInitialized) {
+    content = <SplashNavigator />;
+  } else if (!isAuthenticated) {
+    content = <SignupNavigator />;
+  } else if (isCustomer) {
     content = <CustomerNavigator />;
     Toast.show('Successful Login Customer!');
-  }
-  else if (isAdmin) {
+  } else if (isAdmin) {
     content = <AdminNavigator />;
     Toast.show('Successful Login Admin!');
+  } else if (isActivity) {
+    content = <ActivityIndicator />;
   }
-  else if (isActivity) content = <ActivityIndicator />
 
+
+/*
+Finally, we render the main layout "content".
+*/
   return (
     <View style={{ flex: 1, backgroundColor: 'red' }}>
       <SafeAreaView

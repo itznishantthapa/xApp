@@ -15,9 +15,6 @@ export const signupUser = async (payload) => {
       ['@refresh_token', tokens.refresh],
       ['@user', JSON.stringify(user)]
     ]);
-    console.log('Data stored successfully in AsyncStorage');
-
-    // Show success toast
     Toast.show('Signup Successful!');
 
     return user;
@@ -30,7 +27,6 @@ export const signupUser = async (payload) => {
 export const getStoredUser = async () => {
   const token = await AsyncStorage.getItem('@access_token');
   const user = await AsyncStorage.getItem('@user');
-  console.log('local user', user)
   return token && user ? JSON.parse(user) : null;
 };
 

@@ -39,7 +39,7 @@ export const useAuthStore = create((set) => ({
       isAuthenticated: false,
       isAdmin: false,
       isCustomer: false,
-      isInitialized: false,
+      isInitialized: true,
     });
   },
 }));

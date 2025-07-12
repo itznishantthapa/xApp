@@ -1,9 +1,11 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
+import { useAuthStore } from '../../store/authStore';
 
 const Favorite = () => {
   const navigation = useNavigation();
+  const {logout} = useAuthStore();
   return (
         <>
             <StatusBar
@@ -14,6 +16,7 @@ const Favorite = () => {
           
             <SafeAreaView style={{ flex: 1,backgroundColor:'#000000' }}>
               <Text style={styles.favTxt}>Favorite</Text>
+              <Text style={styles.text} onPress={async()=>await logout()}>Logout</Text>
               <View style={styles.container}>
                <Text style={styles.text} onPress={()=>navigation.navigate('home')}>Click</Text>
               </View>
