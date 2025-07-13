@@ -5,7 +5,7 @@ import { getStoredUser, logoutUser, signupUser } from '../service/authService';
 
 export const useAuthStore = create((set) => ({
   user: null,
-  isAuthenticated: false,
+  isAuthenticated: true,
   isAdmin: false,
   isCustomer: false,
 

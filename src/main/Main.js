@@ -1,15 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SplashNavigator from '../navigation/SplashNavigator';
 import SignupNavigator from '../navigation/SignupNavigator';
 import CustomerNavigator from '../navigation/CustomerNavigator';
 import AdminNavigator from '../navigation/AdminNavigator';
 import { useStateStore } from '../store/stateStore';
-import { ActivityIndicator, Animated, View ,Text} from 'react-native';
+import {Animated} from 'react-native';
 import { useEffect, useRef } from 'react';
 import { useAuthStore } from '../store/authStore';
 import Toast from 'react-native-simple-toast';
-import SplashScreen from '../screens/splash/SplashScreen';
+
 
 
 
@@ -20,7 +19,8 @@ export default function RootLayout() {
     These states provide us with the necessary state and actions.
   */
   const { isAuthenticated, initAuth, isAdmin, isCustomer } = useAuthStore();
-  const { isActivity, setInitialized, isInitialized } = useStateStore();
+  const {  setInitialized, isInitialized } = useStateStore();
+
 
 
   /*
@@ -33,7 +33,9 @@ export default function RootLayout() {
       duration: 400,
       useNativeDriver: true,
     }).start();
-  }, [isInitialized, isCustomer, isAdmin, isAuthenticated]);
+  }, []);
+
+
 
 
 
@@ -45,13 +47,13 @@ export default function RootLayout() {
   useEffect(() => {
     const init = async () => {
       await initAuth();
-    };
-    setTimeout(() => {
       setInitialized(true);
-    }, 2000); // Simulate a delay for splash screen
+    };
+
     init();
   }, []);
 
+  
 
 
   /*
@@ -59,29 +61,24 @@ export default function RootLayout() {
   */
   function getContent() {
 
-  if ( isAuthenticated && isCustomer) {
-    setTimeout(() => {
-      Toast.show('Successful Login Customer!');
-    }, 5000); // Simulate a delay for splash screen
+      if ( isAuthenticated && isCustomer) {
+        setTimeout(() => {
+          Toast.show('Successful Login Customer!');
+        }, 5000); 
+          return <CustomerNavigator />;
+        } else if (isInitialized && isAuthenticated && isAdmin) {
+          Toast.show('Successful Login Admin!');
+          return <AdminNavigator />;
+        } else if (!isAuthenticated && isInitialized && !isAdmin && !isCustomer) {
+          return <SignupNavigator />;
+        }
 
-      return <CustomerNavigator />;
-    } else if (isInitialized && isAuthenticated && isAdmin) {
-      Toast.show('Successful Login Admin!');
-      return <AdminNavigator />;
-    } else if (!isAuthenticated && isInitialized) {
-      return <SignupNavigator />;
-    }
-
+        return null;
+        
   }
 
-//  if (!isInitialized) {
-//     return (
-//       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//         <ActivityIndicator size="large" color="#0000ff" />
-//         <Text>Loading...</Text>
-//       </View>
-//     );
-//   }
+
+
 
   /*
   Finally, we render the main layout "content".
