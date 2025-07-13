@@ -1,4 +1,4 @@
-package com.xapp
+package com.anonymous.xApp
 
 import android.os.Build
 import android.os.Bundle

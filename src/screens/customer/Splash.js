@@ -1,8 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 const SplashScreen = () => {
+ const navigation = useNavigation();
+
+ useEffect(() => {
+   const timer = setTimeout(() => {
+     navigation.replace('home'); // Navigate to Home after splash
+   }, 4000); // 2 seconds delay
+    return () => clearTimeout(timer); // Cleanup on unmount
+    }
+    , []);
+
   return (
         <>
             <StatusBar
@@ -12,9 +24,9 @@ const SplashScreen = () => {
             />
           
             <SafeAreaView style={{ flex: 1,backgroundColor:'white',position:'relative' }}>
-              <Text style={styles.favTxt}>SplashScreen</Text>
+              <Text style={styles.favTxt}>Customer</Text>
               <View style={styles.container}>
-               <Text style={styles.text}>SplashScreen</Text>
+               <Text style={styles.text}>Customer SplashScreen</Text>
               </View>
             </SafeAreaView>
 

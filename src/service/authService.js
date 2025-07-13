@@ -27,6 +27,7 @@ export const signupUser = async (payload) => {
 export const getStoredUser = async () => {
   const token = await AsyncStorage.getItem('@access_token');
   const user = await AsyncStorage.getItem('@user');
+  console.log('Stored user:', user);
   return token && user ? JSON.parse(user) : null;
 };
 
