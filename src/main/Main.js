@@ -9,6 +9,7 @@ import { ActivityIndicator, Animated, View ,Text} from 'react-native';
 import { useEffect, useRef } from 'react';
 import { useAuthStore } from '../store/authStore';
 import Toast from 'react-native-simple-toast';
+import SplashScreen from '../screens/splash/SplashScreen';
 
 
 
@@ -47,7 +48,7 @@ export default function RootLayout() {
     };
     setTimeout(() => {
       setInitialized(true);
-    }, 500); // Simulate a delay for splash screen
+    }, 2000); // Simulate a delay for splash screen
     init();
   }, []);
 
@@ -73,19 +74,21 @@ export default function RootLayout() {
 
   }
 
- if (!isInitialized) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>hello world</Text>
-      </View>
-    );
-  }
+//  if (!isInitialized) {
+//     return (
+//       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//         <ActivityIndicator size="large" color="#0000ff" />
+//         <Text>Loading...</Text>
+//       </View>
+//     );
+//   }
 
   /*
   Finally, we render the main layout "content".
   */
   return (
-    <>
+      <> 
+
       <SafeAreaView
         style={{ flex: 1 }}
         edges={['right', 'left']}

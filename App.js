@@ -1,9 +1,14 @@
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Main from './src/main/Main';
-import Toast from 'react-native-simple-toast';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
+import { use, useEffect } from 'react';
+
 
 
 export default function App() {
+  useEffect(() => {
+    SystemNavigationBar.setNavigationColor('transparent');
+  }, []);
   return (
     <SafeAreaProvider >
       <Main/>
