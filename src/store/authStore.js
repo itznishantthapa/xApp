@@ -8,6 +8,8 @@ export const useAuthStore = create((set) => ({
   isAuthenticated: true,
   isAdmin: false,
   isCustomer: false,
+  isInitialized: false,
+  
 
 
   initAuth: async () => {
@@ -17,6 +19,7 @@ export const useAuthStore = create((set) => ({
       isAuthenticated: !!user,
       isAdmin: user?.role === 'admin',
       isCustomer: user?.role === 'customer',
+      isInitialized: true,
 
     });
   },
@@ -28,6 +31,7 @@ export const useAuthStore = create((set) => ({
       isAuthenticated: true,
       isAdmin: user?.role === 'admin',
       isCustomer: user?.role === 'customer',
+      isInitialized: true,
 
     });
   },
@@ -39,6 +43,7 @@ export const useAuthStore = create((set) => ({
       isAdmin: false,
       isCustomer: false,
       isAuthenticated: false,
+      isInitialized: true,
     });
   },
 }));

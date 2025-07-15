@@ -4,10 +4,14 @@ import SignupNavigator from '../navigation/SignupNavigator';
 import CustomerNavigator from '../navigation/CustomerNavigator';
 import AdminNavigator from '../navigation/AdminNavigator';
 import { useStateStore } from '../store/stateStore';
-import {Animated} from 'react-native';
-import { useEffect, useRef } from 'react';
-import { useAuthStore } from '../store/authStore';
+import { Animated, Text, View } from 'react-native';
+import { useEffect, useRef, useCallback } from 'react';
 import Toast from 'react-native-simple-toast';
+import { useAuthStore } from '../store/authStore';
+import * as SplashScreen from 'expo-splash-screen';
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 
 
@@ -18,8 +22,8 @@ export default function RootLayout() {
     We zustand state stores.
     These states provide us with the necessary state and actions.
   */
-  const { isAuthenticated, initAuth, isAdmin, isCustomer } = useAuthStore();
-  const {  setInitialized, isInitialized } = useStateStore();
+  const { isAuthenticated, initAuth, isAdmin, isCustomer, isInitialized } = useAuthStore();
+
 
 
 
@@ -41,19 +45,40 @@ export default function RootLayout() {
 
   /*
    The init() is called after a delay to simulate an asynchronous operations, 
-   In this two sec delay the splash screen is shown,
+   In this 4 sec delay the splash screen is shown,
    By default isInitialized is false
   */
   useEffect(() => {
     const init = async () => {
       await initAuth();
-      setInitialized(true);
-    };
-
+      console.log(isInitialized)
+    }
     init();
   }, []);
 
-  
+  /*
+    Hide splash screen when app is initialized
+  */
+  useEffect(() => {
+    if (isInitialized && getContent() !== null) {
+      SplashScreen.hideAsync();
+    }
+  }, [isInitialized, isAuthenticated, isAdmin, isCustomer]);
+
+
+  /*
+    Show a toast message based on the authentication state.
+  */
+  useEffect(() => {
+  if (isInitialized && isAuthenticated && isCustomer) {
+    Toast.show('Successful Login Customer!', Toast.SHORT);
+  } else if (isInitialized && isAuthenticated && isAdmin) {
+    Toast.show('Successful Login Admin!', Toast.SHORT);
+  }
+}, [isInitialized, isAuthenticated]);
+
+
+
 
 
   /*
@@ -61,21 +86,20 @@ export default function RootLayout() {
   */
   function getContent() {
 
-      if ( isAuthenticated && isCustomer) {
-        setTimeout(() => {
-          Toast.show('Successful Login Customer!');
-        }, 5000); 
-          return <CustomerNavigator />;
-        } else if (isInitialized && isAuthenticated && isAdmin) {
-          Toast.show('Successful Login Admin!');
-          return <AdminNavigator />;
-        } else if (!isAuthenticated && isInitialized && !isAdmin && !isCustomer) {
-          return <SignupNavigator />;
-        }
+    if (isInitialized && isAuthenticated && isCustomer) {
+      return <CustomerNavigator />;
+    } else if (isInitialized && isAuthenticated && isAdmin) {
+      return <AdminNavigator />;
+    } else if (!isAuthenticated && isInitialized && !isAdmin && !isCustomer) {
+      return <SignupNavigator />;
+    }
 
-        return null;
-        
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'#ffffff' }}>
+      </View>
+    )
   }
+
 
 
 
@@ -84,8 +108,7 @@ export default function RootLayout() {
   Finally, we render the main layout "content".
   */
   return (
-      <> 
-
+    <>
       <SafeAreaView
         style={{ flex: 1 }}
         edges={['right', 'left']}

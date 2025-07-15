@@ -2647,6 +2647,13 @@ expo-modules-core@2.4.2:
   dependencies:
     invariant "^2.2.4"
 
+expo-splash-screen@~0.30.10:
+  version "0.30.10"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.30.10.tgz#d249d350f867b6513fa34a9c4cf6545260ab5208"
+  integrity sha512-Tt9va/sLENQDQYeOQ6cdLdGvTZ644KR3YG9aRlnpcs2/beYjOX1LHT510EGzVN9ljUTg+1ebEo5GGt2arYtPjw==
+  dependencies:
+    "@expo/prebuild-config" "^9.0.10"
+
 expo@~53.0.17:
   version "53.0.17"
   resolved "https://registry.yarnpkg.com/expo/-/expo-53.0.17.tgz#785bf6a5fe2c14ef5f2b7fe17690308a78755b4f"
