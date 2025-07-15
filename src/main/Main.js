@@ -3,9 +3,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SignupNavigator from '../navigation/SignupNavigator';
 import CustomerNavigator from '../navigation/CustomerNavigator';
 import AdminNavigator from '../navigation/AdminNavigator';
-import { useStateStore } from '../store/stateStore';
-import { Animated, Text, View } from 'react-native';
-import { useEffect, useRef, useCallback } from 'react';
+import { Animated} from 'react-native';
+import { useEffect, useRef } from 'react';
 import Toast from 'react-native-simple-toast';
 import { useAuthStore } from '../store/authStore';
 import * as SplashScreen from 'expo-splash-screen';
@@ -70,12 +69,12 @@ export default function RootLayout() {
     Show a toast message based on the authentication state.
   */
   useEffect(() => {
-  if (isInitialized && isAuthenticated && isCustomer) {
-    Toast.show('Successful Login Customer!', Toast.SHORT);
-  } else if (isInitialized && isAuthenticated && isAdmin) {
-    Toast.show('Successful Login Admin!', Toast.SHORT);
-  }
-}, [isInitialized, isAuthenticated]);
+    if (isInitialized && isAuthenticated && isCustomer) {
+      Toast.show('Successful Login Customer!', Toast.SHORT);
+    } else if (isInitialized && isAuthenticated && isAdmin) {
+      Toast.show('Successful Login Admin!', Toast.SHORT);
+    }
+  }, [isInitialized, isAuthenticated]);
 
 
 
@@ -85,20 +84,13 @@ export default function RootLayout() {
     Based on the authentication state, we render different navigators.
   */
   function getContent() {
-
-    if (isInitialized && isAuthenticated && isCustomer) {
-      return <CustomerNavigator />;
-    } else if (isInitialized && isAuthenticated && isAdmin) {
-      return <AdminNavigator />;
-    } else if (!isAuthenticated && isInitialized && !isAdmin && !isCustomer) {
-      return <SignupNavigator />;
+    if (!isInitialized) return null;
+    if (isAuthenticated) {
+      return isCustomer ? <CustomerNavigator /> : isAdmin ? <AdminNavigator /> : null;
     }
-
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'#ffffff' }}>
-      </View>
-    )
+    return <SignupNavigator />;
   }
+
 
 
 
