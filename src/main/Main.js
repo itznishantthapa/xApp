@@ -9,7 +9,9 @@ import Toast from 'react-native-simple-toast';
 import { useAuthStore } from '../store/authStore';
 import * as SplashScreen from 'expo-splash-screen';
 
-// Keep the splash screen visible while we fetch resources
+/*
+  Keep the splash screen visible while we fetch resources
+*/
 SplashScreen.preventAutoHideAsync();
 
 
@@ -55,15 +57,13 @@ export default function RootLayout() {
     init();
   }, []);
 
+
   /*
     Hide splash screen when app is initialized
   */
   useEffect(() => {
     if (isInitialized && getContent() !== null) {
-      setTimeout(()=>{
-
         SplashScreen.hide();
-      },4000)
     }
   }, [isInitialized, isAuthenticated, isAdmin, isCustomer]);
 
@@ -93,8 +93,6 @@ export default function RootLayout() {
     }
     return <SignupNavigator />;
   }
-
-
 
 
 
