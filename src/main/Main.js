@@ -60,7 +60,10 @@ export default function RootLayout() {
   */
   useEffect(() => {
     if (isInitialized && getContent() !== null) {
-      SplashScreen.hideAsync();
+      setTimeout(()=>{
+
+        SplashScreen.hide();
+      },4000)
     }
   }, [isInitialized, isAuthenticated, isAdmin, isCustomer]);
 
